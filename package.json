@@ -20,5 +20,8 @@
     "rollup-plugin-copy-assets-to": "^1.0.0",
     "tslib": "^2.0.3",
     "typescript": "^4.0.3"
+  },
+  "dependencies": {
+    "mathjs": "^9.4.1"
   }
 }
