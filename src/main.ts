@@ -32,6 +32,13 @@ export default class MeldCalcPlugin extends Plugin {
 	}
 
 	processEvaluateCommand_fcal(checking: boolean): boolean {
+
+		if (this.app.workspace.activeLeaf){
+			if (checking){
+				return true;
+			}
+		}
+
 		const mdview = this.app.workspace.getActiveViewOfType(MarkdownView);
 		if (!mdview) {
 			return false;

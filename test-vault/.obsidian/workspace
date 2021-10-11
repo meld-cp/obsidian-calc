@@ -1,0 +1,112 @@
+{
+  "main": {
+    "id": "c52cedab7c986799",
+    "type": "split",
+    "children": [
+      {
+        "id": "ea82f751d5b63da6",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Example.md",
+            "mode": "source"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "2852b64114943b53",
+    "type": "split",
+    "children": [
+      {
+        "id": "ba4ff86249017919",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "abd3e3d4d21079d8",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "cba58517d6425b9f",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 245
+  },
+  "right": {
+    "id": "7af7016e0d6d25e3",
+    "type": "split",
+    "children": [
+      {
+        "id": "cf56b05bb979845c",
+        "type": "tabs",
+        "dimension": 43.23607427055704,
+        "children": [
+          {
+            "id": "04c79f6c4a3a447e",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Example.md"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "f1833db00eae9f14",
+        "type": "tabs",
+        "dimension": 56.76392572944296,
+        "children": [
+          {
+            "id": "58ffba30045425b2",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Example.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 156
+  },
+  "active": "ea82f751d5b63da6",
+  "lastOpenFiles": [
+    "Example.md",
+    "Untitled.md",
+    "Untitled 1.md"
+  ]
+}
