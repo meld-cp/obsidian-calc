@@ -17,12 +17,14 @@ Write an expression which ends with the equal symbol, like:
 PI * 4cm ^ 2 = 
 ```
 
-Select the expression and choose evaluate from the command palette
+Select the expression and choose evaluate from the command palette:
+
 <img alt="Select the expression" src="https://raw.githubusercontent.com/meld-cp/obsidian-calc/main/docs/assets/eg1-exp.png" /> 
 
 <img alt="Choose evaluate from the command palette" src="https://raw.githubusercontent.com/meld-cp/obsidian-calc/main/docs/assets/select-command.png" /> 
 
 The expression should be evaluated:
+
 ```
 PI * 4cm ^ 2 = 50.265482457436691815 Centimeters
 ```
@@ -51,6 +53,7 @@ z+y=
 ```
 
 Selecting all 3 lines and running the evaluate command from the palette will result in:
+
 ```
 x=56.43
 y=x/2
