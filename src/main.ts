@@ -51,7 +51,7 @@ export default class MeldCalcPlugin extends Plugin {
 
 		const selection = editor.getSelection();
 
-		let evalText = selection.trim();
+		let evalText = selection;
 		
 		if ( evalText.length == 0 ) {
 			return false;
@@ -63,11 +63,13 @@ export default class MeldCalcPlugin extends Plugin {
 
 		// split in to array of lines
 		const lines = evalText.split('\n');
-		console.log( { lines } );
+		//console.log( { lines } );
 
 		let evaluatedLines = [];
-		for (const line of lines) {
-			evaluatedLines.push( this.evaluateLine( line ) );
+		for (let i = 0; i < lines.length; i++) {
+			const line = lines[i];
+			const lastLine = i == lines.length-1;
+			evaluatedLines.push( this.evaluateLine( line, lastLine ) );
 		}
 
 		const formatedResult = evaluatedLines.join('\n');
@@ -77,29 +79,39 @@ export default class MeldCalcPlugin extends Plugin {
 		return true;
 	}
 
-	evaluateLine( line: string ): string {
-		console.log( line );
+	evaluateLine( line: string, isLastLine: boolean ): string {
+		//console.log( 'evaluateLine', { line, isLastLine } );
 		let appendResult = false;
-		let evalLine = line;
-		if ( line.endsWith('=') ){
+		let evalLine = line.trim();
+		if ( evalLine.endsWith('=') ){
 			appendResult = true;
-			evalLine = line.slice(0,-1); // remove '='
+			evalLine = evalLine.slice(0,-1); // remove '='
 		}
+		// replace escaped multiplication
+		evalLine = evalLine.replace('\\*','*');
+
+		// replace x as multiplication
+		//evalLine = evalLine.replace('x','*');
+
+		// trim it down
+		evalLine = evalLine.trim();
 
 		try{
-			console.log( evalLine );
+			//console.log( {evalLine} );
 			const rawResult = MeldCalcPlugin.fcal.evaluate( evalLine );
 			
 			const formatedResult = rawResult.toString();
-			console.log( evalLine, rawResult, formatedResult );
+			console.log( { evalLine, rawResult, formatedResult } );
 
 			if ( appendResult ){
+				//console.log( 'append', {  line, formatedResult,  result:`${line}${formatedResult}` } );
 				return `${line}${formatedResult}`;
-			// 	editor.replaceSelection( `${selection}${formatedResult}` );
 			}else{
-			// 	navigator.clipboard.writeText(formatedResult).then(()=>{
-			// 		new Notice(`${formatedResult} (copied)`, 5000);
-			// 	});
+				if (isLastLine){
+					navigator.clipboard.writeText(formatedResult).then(()=>{
+						new Notice(`${formatedResult} (copied)`, 5000);
+					});
+				}
 				return line;
 			}
 		}catch ( ex ){
