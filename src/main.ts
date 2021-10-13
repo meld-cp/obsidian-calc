@@ -3,8 +3,7 @@ import { Fcal, FcalError } from 'fcal';
 
 export default class MeldCalcPlugin extends Plugin {
 
-	static evalScope = {};
-	static fcal = new Fcal();
+	private fcal = new Fcal();
 
 	async onload() {
 
@@ -18,8 +17,8 @@ export default class MeldCalcPlugin extends Plugin {
 
 	processEvaluateCommand_fcal(checking: boolean): boolean {
 
-		if (this.app.workspace.activeLeaf){
-			if (checking){
+		if (this.app.workspace.activeLeaf) {
+			if (checking) {
 				return true;
 			}
 		}
@@ -37,12 +36,12 @@ export default class MeldCalcPlugin extends Plugin {
 		const selection = editor.getSelection();
 
 		let evalText = selection;
-		
-		if ( evalText.length == 0 ) {
+
+		if (evalText.length === 0) {
 			return false;
 		}
 
-		if ( checking ){
+		if (checking) {
 			return true;
 		}
 
@@ -52,54 +51,53 @@ export default class MeldCalcPlugin extends Plugin {
 		let evaluatedLines = [];
 		for (let i = 0; i < lines.length; i++) {
 			const line = lines[i];
-			const lastLine = i == lines.length-1;
-			evaluatedLines.push( this.evaluateLine( line, lastLine ) );
+			const lastLine = (i === lines.length - 1);
+			evaluatedLines.push(this.evaluateLine(line, lastLine));
 		}
 
 		const formatedResult = evaluatedLines.join('\n');
 
-		editor.replaceSelection( formatedResult );
+		editor.replaceSelection(formatedResult);
 
 		return true;
 	}
 
-	evaluateLine( line: string, isLastLine: boolean ): string {
+	evaluateLine(line: string, isLastLine: boolean): string {
 
 		let appendResult = false;
 		let evalLine = line.trim();
-		if ( evalLine.endsWith('=') ){
+		if (evalLine.endsWith('=')) {
 			appendResult = true;
-			evalLine = evalLine.slice(0,-1); // remove '='
+			evalLine = evalLine.slice(0, -1); // remove '='
 		}
 
 		// replace escaped multiplication
-		evalLine = evalLine.replace('\\*','*');
+		evalLine = evalLine.replace('\\*', '*');
 
 		// trim it down
 		evalLine = evalLine.trim();
 
-		try{
-			const rawResult = MeldCalcPlugin.fcal.evaluate( evalLine );
-			
-			const formatedResult = rawResult.toString();
-			console.log( { evalLine, rawResult, formatedResult } );
+		try {
+			const rawResult = this.fcal.evaluate(evalLine);
 
-			if ( appendResult ){
+			const formatedResult = rawResult.toString();
+
+			if (appendResult) {
 				return `${line}${formatedResult}`;
-			}else{
-				if (isLastLine){
-					navigator.clipboard.writeText(formatedResult).then(()=>{
+			} else {
+				if (isLastLine) {
+					navigator.clipboard.writeText(formatedResult).then(() => {
 						new Notice(`${formatedResult} (copied)`, 5000);
 					});
 				}
 				return line;
 			}
-		}catch ( ex ){
+		} catch (ex) {
 			if (ex instanceof FcalError) {
 				console.error(ex.message);
 				new Notice(ex.message, 5000);
-			}else{
-				console.error( ex );
+			} else {
+				console.error(ex);
 				new Notice(ex, 5000);
 			}
 			return line;

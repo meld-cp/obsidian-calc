@@ -6,10 +6,10 @@ https://github.com/5anthosh/fcal
 1+109
 
 ## insert after equals
+```
 5+6*3 = 23
-5+6x3 =
-5+6 x 3 =
-
+5+6*3
+```
 a=2
 a\*45=90
 
