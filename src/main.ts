@@ -1,4 +1,4 @@
-import { Notice, Plugin, MarkdownView } from 'obsidian';
+import { Editor, Notice, Plugin, MarkdownView } from 'obsidian';
 import { Fcal, FcalError } from 'fcal';
 
 export default class MeldCalcPlugin extends Plugin {
@@ -10,28 +10,12 @@ export default class MeldCalcPlugin extends Plugin {
 		this.addCommand({
 			id: 'encrypt-calc',
 			name: 'Evaluate',
-			checkCallback: (checking) => this.processEvaluateCommand_fcal(checking)
+			editorCheckCallback: (checking, editor, view) => this.processEvaluateCommand_fcal(checking, editor, view)
 		});
 
 	}
 
-	processEvaluateCommand_fcal(checking: boolean): boolean {
-
-		if (this.app.workspace.activeLeaf) {
-			if (checking) {
-				return true;
-			}
-		}
-
-		const mdview = this.app.workspace.getActiveViewOfType(MarkdownView);
-		if (!mdview) {
-			return false;
-		}
-
-		const editor = mdview.editor;
-		if (!editor) {
-			return false;
-		}
+	processEvaluateCommand_fcal(checking: boolean, editor: Editor, view: MarkdownView): boolean {
 
 		const selection = editor.getSelection();
 
