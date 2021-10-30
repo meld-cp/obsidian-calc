@@ -1,0 +1,5 @@
+.meld-calc-result {
+    margin-left: 3em;
+    font-style: italic;
+    color: var(--text-faint);
+}
